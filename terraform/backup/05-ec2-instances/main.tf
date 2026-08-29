@@ -1,6 +1,6 @@
 provider "aws" {
   region  = "us-east-1"
-  version = "~> 2.46"
+  //version = "~> 2.46" (No longer necessary)
 }
 
 resource "aws_default_vpc" "default" {
@@ -46,7 +46,7 @@ resource "aws_instance" "http_server" {
   vpc_security_group_ids = [aws_security_group.http_server_sg.id]
 
   //subnet_id              = "subnet-3f7b2563"
-  subnet_id = tolist(data.aws_subnet_ids.default_subnets.ids)[0]
+  subnet_id = data.aws_subnets.default_subnets.ids[0]
 
   connection {
     type        = "ssh"
